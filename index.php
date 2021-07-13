@@ -1,3 +1,17 @@
+<?php
+
+$login = 'lexx';
+$password = '123';
+$auth = false;
+
+if ( isset($_POST['auth']) ) {
+    if ($_POST['login'] == $login && $_POST['password'] == $password) {
+        $auth = true;
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +23,11 @@
 </head>
 
 <body>
+    <?php if ($auth): ?>
+        <script type="text/javascript">
+            alert('Вы успешно авторизовались');
+        </script>
+    <?php endif; ?>
 
     <div class="header">
     	<div class="logo"><img src="i/logo.png" width="68" height="23" alt="Project"></div>
@@ -38,34 +57,38 @@
 
 				<div class="project-folders-menu">
 					<ul class="project-folders-v">
-    					<li class="project-folders-v-active"><a href="#">Авторизация</a></li>
+    					<li class="project-folders-v-active"><a href="?login=yes">Авторизация</a></li>
     					<li><a href="#">Регистрация</a></li>
     					<li><a href="#">Забыли пароль?</a></li>
 					</ul>
 				    <div class="clearfix"></div>
 				</div>
 
-				<div class="index-auth">
-                    <form action="" method="">
-						<table width="100%" border="0" cellspacing="0" cellpadding="0">
-							<tr>
-								<td class="iat">
-                                    <label for="login_id">Ваш e-mail:</label>
-                                    <input id="login_id" size="30" name="login">
-                                </td>
-							</tr>
-							<tr>
-								<td class="iat">
-                                    <label for="password_id">Ваш пароль:</label>
-                                    <input id="password_id" size="30" name="password" type="password">
-                                </td>
-							</tr>
-							<tr>
-								<td><input type="submit" value="Войти"></td>
-							</tr>
-						</table>
-                    </form>
-				</div>
+                <?php if (isset($_GET['login']) && $_GET['login'] == 'yes'): ?>
+
+    				<div class="index-auth">
+                        <form action="<? $_SERVER['PHP_SELF'] ?>" method="post">
+    						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    							<tr>
+    								<td class="iat">
+                                        <label for="login_id">Ваш e-mail:</label>
+                                        <input id="login_id" size="30" name="login">
+                                    </td>
+    							</tr>
+    							<tr>
+    								<td class="iat">
+                                        <label for="password_id">Ваш пароль:</label>
+                                        <input id="password_id" size="30" name="password" type="password">
+                                    </td>
+    							</tr>
+    							<tr>
+    								<td><input type="submit" name="auth" value="Войти"></td>
+    							</tr>
+    						</table>
+                        </form>
+    				</div>
+
+                <?php endif; ?>
 
 			</td>
         </tr>
