@@ -2,11 +2,16 @@
 
 $login = 'lexx';
 $password = '123';
-$auth = false;
+$success = false;
+$error = '';
 
 if ( isset($_POST['auth']) ) {
     if ($_POST['login'] == $login && $_POST['password'] == $password) {
-        $auth = true;
+        $success = true;
+    } elseif ( $_POST['login'] == '' || $_POST['password'] == '' ) {
+        $error = 'Все поля должны быть заполнены!';
+    } else {
+        $error = 'Неверный логин или пароль!';
     }
 }
 
@@ -23,7 +28,7 @@ if ( isset($_POST['auth']) ) {
 </head>
 
 <body>
-    <?php if ($auth): ?>
+    <?php if ($success): ?>
         <script type="text/javascript">
             alert('Вы успешно авторизовались');
         </script>
@@ -69,16 +74,24 @@ if ( isset($_POST['auth']) ) {
     				<div class="index-auth">
                         <form action="<? $_SERVER['PHP_SELF'] ?>" method="post">
     						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <?php if ($error): ?>
+                                    <tr>
+        								<td class="iat">
+                                            <span class="text-error"><?=$error?></span>
+                                        </td>
+        							</tr>
+                                <?php endif ?>
+
     							<tr>
     								<td class="iat">
                                         <label for="login_id">Ваш e-mail:</label>
-                                        <input id="login_id" size="30" name="login">
+                                        <input id="login_id" size="30" name="login" value="<?=$_POST['login'] ?? ''?>">
                                     </td>
     							</tr>
     							<tr>
     								<td class="iat">
                                         <label for="password_id">Ваш пароль:</label>
-                                        <input id="password_id" size="30" name="password" type="password">
+                                        <input id="password_id" size="30" name="password" type="password" value="<?=$_POST['password'] ?? ''?>">
                                     </td>
     							</tr>
     							<tr>
@@ -88,7 +101,7 @@ if ( isset($_POST['auth']) ) {
                         </form>
     				</div>
 
-                <?php endif; ?>
+                <?php endif ?>
 
 			</td>
         </tr>
