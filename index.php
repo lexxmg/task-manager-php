@@ -1,17 +1,23 @@
 <?php
 
-$login = 'lexx';
-$password = '123';
+require ($_SERVER['DOCUMENT_ROOT'] . '/users.php');
+
+$authUser = [];
 $success = false;
 $error = '';
 
 if ( isset($_POST['auth']) ) {
-    if ($_POST['login'] == $login && $_POST['password'] == $password) {
-        $success = true;
-    } elseif ( $_POST['login'] == '' || $_POST['password'] == '' ) {
-        $error = 'Все поля должны быть заполнены!';
-    } else {
-        $error = 'Неверный логин или пароль!';
+    foreach ($users as $item) {
+        if ($_POST['login'] == $item['email'] && $_POST['password'] == $passwords[$item['id']]) {
+            $success = true;
+            $authUser = $item;
+            $error = '';
+            break;
+        } elseif ( $_POST['login'] == '' || $_POST['password'] == '' ) {
+            $error = 'Все поля должны быть заполнены!';
+        } else {
+            $error = 'Неверный логин или пароль!';
+        }
     }
 }
 
@@ -30,7 +36,8 @@ if ( isset($_POST['auth']) ) {
 <body>
     <?php if ($success): ?>
         <script type="text/javascript">
-            alert('Вы успешно авторизовались');
+            const user = "<?=$authUser['fullName'] ?? ''?>";
+            alert('Вы успешно авторизовались как: ' + user);
         </script>
     <?php endif; ?>
 
