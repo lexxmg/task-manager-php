@@ -1,22 +1,26 @@
 <?php
 
-require ($_SERVER['DOCUMENT_ROOT'] . '/users.php');
+require ($_SERVER['DOCUMENT_ROOT'] . '/php/users.php');
+
+$login = htmlspecialchars($_POST['login'] ?? '');
+$password = htmlspecialchars($_POST['password'] ?? '');
 
 $authUser = [];
 $success = false;
 $error = '';
 
 if ( isset($_POST['auth']) ) {
-    foreach ($users as $item) {
-        if ($_POST['login'] == $item['email'] && $_POST['password'] == $passwords[$item['id']]) {
-            $success = true;
-            $authUser = $item;
-            $error = '';
-            break;
-        } elseif ( $_POST['login'] == '' || $_POST['password'] == '' ) {
-            $error = 'Все поля должны быть заполнены!';
-        } else {
-            $error = 'Неверный логин или пароль!';
+    if ( $login == '' || $password == '' ) {
+        $error = 'Все поля должны быть заполнены!';
+    } else {
+        $error = 'Неверный логин или пароль!';
+
+        foreach ($users as $item) {
+            if ($login == $item['email'] && $password == $passwords[$item['id']]) {
+                $success = true;
+                $authUser = $item;
+                $error = '';
+            }
         }
     }
 }
@@ -29,20 +33,16 @@ if ( isset($_POST['auth']) ) {
     <meta charset="utf-8">
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="styles.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/success.css">
     <title>Project - ведение списков</title>
 </head>
 
 <body>
-    <?php if ($success): ?>
-        <script type="text/javascript">
-            const user = "<?=$authUser['fullName'] ?? ''?>";
-            alert('Вы успешно авторизовались как: ' + user);
-        </script>
-    <?php endif; ?>
-
     <div class="header">
-    	<div class="logo"><img src="i/logo.png" width="68" height="23" alt="Project"></div>
+    	<div class="logo"><img src="/i/logo.png" width="68" height="23" alt="Project"></div>
+
+        <?php $success ? include($_SERVER['DOCUMENT_ROOT'] . '/php/success.php') : ''?>
         <div class="clearfix"></div>
     </div>
 
@@ -69,7 +69,7 @@ if ( isset($_POST['auth']) ) {
 
 				<div class="project-folders-menu">
 					<ul class="project-folders-v">
-    					<li class="project-folders-v-active"><a href="?login=yes">Авторизация</a></li>
+    					<li class="project-folders-v-active"><a href="<?=$_SERVER['PHP_SELF']?>?login=yes">Авторизация</a></li>
     					<li><a href="#">Регистрация</a></li>
     					<li><a href="#">Забыли пароль?</a></li>
 					</ul>
@@ -79,7 +79,7 @@ if ( isset($_POST['auth']) ) {
                 <?php if (isset($_GET['login']) && $_GET['login'] == 'yes'): ?>
 
     				<div class="index-auth">
-                        <form action="<? $_SERVER['PHP_SELF'] ?>" method="post">
+                        <form action="<?= $success ? $_SERVER['PHP_SELF'] : $_SERVER['PHP_SELF'] . '?login=yes' ?>" method="post">
     						<table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <?php if ($error): ?>
                                     <tr>
@@ -92,13 +92,13 @@ if ( isset($_POST['auth']) ) {
     							<tr>
     								<td class="iat">
                                         <label for="login_id">Ваш e-mail:</label>
-                                        <input id="login_id" size="30" name="login" value="<?=$_POST['login'] ?? ''?>">
+                                        <input id="login_id" size="30" name="login" value="<?=$login?>">
                                     </td>
     							</tr>
     							<tr>
     								<td class="iat">
                                         <label for="password_id">Ваш пароль:</label>
-                                        <input id="password_id" size="30" name="password" type="password" value="<?=$_POST['password'] ?? ''?>">
+                                        <input id="password_id" size="30" name="password" type="password" value="<?=$password?>">
                                     </td>
     							</tr>
     							<tr>
