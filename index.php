@@ -76,10 +76,10 @@ if ( isset($_POST['auth']) ) {
 				    <div class="clearfix"></div>
 				</div>
 
-                <?php if (isset($_GET['login']) && $_GET['login'] == 'yes'): ?>
+                <?php if (isset($_GET['login']) && $_GET['login'] == 'yes' || !$success): ?>
 
     				<div class="index-auth">
-                        <form action="<?= $success ? $_SERVER['PHP_SELF'] : $_SERVER['PHP_SELF'] . '?login=yes' ?>" method="post">
+                        <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
     						<table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <?php if ($error): ?>
                                     <tr>
