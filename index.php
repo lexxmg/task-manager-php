@@ -1,7 +1,5 @@
 <?php
 
-require ($_SERVER['DOCUMENT_ROOT'] . '/php/users.php');
-
 $login = htmlspecialchars($_POST['login'] ?? '');
 $password = htmlspecialchars($_POST['password'] ?? '');
 
@@ -10,6 +8,8 @@ $success = false;
 $error = '';
 
 if ( isset($_POST['auth']) ) {
+    require ($_SERVER['DOCUMENT_ROOT'] . '/php/users.php');
+
     if ( $login == '' || $password == '' ) {
         $error = 'Все поля должны быть заполнены!';
     } else {
@@ -47,11 +47,11 @@ if ( isset($_POST['auth']) ) {
 
     <div class="clear">
         <ul class="main-menu">
-            <li><a href="#">Главная</a></li>
-            <li><a href="#">О нас</a></li>
-            <li><a href="#">Контакты</a></li>
-            <li><a href="#">Новости</a></li>
-            <li><a href="#">Каталог</a></li>
+            <li><a href="/#">Главная</a></li>
+            <li><a href="/#">О нас</a></li>
+            <li><a href="/#">Контакты</a></li>
+            <li><a href="/#">Новости</a></li>
+            <li><a href="/#">Каталог</a></li>
         </ul>
     </div>
 
@@ -67,9 +67,9 @@ if ( isset($_POST['auth']) ) {
 
 				<div class="project-folders-menu">
 					<ul class="project-folders-v">
-    					<li class="project-folders-v-active"><a href="<?=$_SERVER['PHP_SELF']?>?login=yes">Авторизация</a></li>
-    					<li><a href="#">Регистрация</a></li>
-    					<li><a href="#">Забыли пароль?</a></li>
+    					<li class="project-folders-v-active"><a href="/?login=yes">Авторизация</a></li>
+    					<li><a href="/#">Регистрация</a></li>
+    					<li><a href="/#">Забыли пароль?</a></li>
 					</ul>
 				    <div class="clearfix"></div>
 				</div>
