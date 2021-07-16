@@ -15,10 +15,10 @@ if ( isset($_POST['auth']) ) {
     } else {
         $error = 'Неверный логин или пароль!';
 
-        foreach ($users as $item) {
-            if ($login == $item['email'] && $password == $passwords[$item['id']]) {
+        for ($i = 0; $i < count($users); $i++) {
+            if ($login == $users[$i]['email'] && $password == $passwords[$i]) {
                 $success = true;
-                $authUser = $item;
+                $authUser = $users[$i];
                 $error = '';
             }
         }
@@ -42,7 +42,6 @@ if ( isset($_POST['auth']) ) {
     <div class="header">
     	<div class="logo"><img src="/i/logo.png" width="68" height="23" alt="Project"></div>
 
-        <?php $success ? include($_SERVER['DOCUMENT_ROOT'] . '/php/success.php') : ''?>
         <div class="clearfix"></div>
     </div>
 
@@ -63,7 +62,6 @@ if ( isset($_POST['auth']) ) {
 				<h1>Возможности проекта —</h1>
 				<p>Вести свои личные списки, например покупки в магазине, цели, задачи и многое другое. Делится списками с друзьями и просматривать списки друзей.</p>
 
-
 			</td>
             <td class="right-collum-index">
 
@@ -76,10 +74,10 @@ if ( isset($_POST['auth']) ) {
 				    <div class="clearfix"></div>
 				</div>
 
-                <?php if (isset($_GET['login']) && $_GET['login'] == 'yes' || !$success): ?>
+                <?php if (isset($_GET['login']) && $_GET['login'] == 'yes'): ?>
 
     				<div class="index-auth">
-                        <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
+                        <form action="" method="post">
     						<table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <?php if ($error): ?>
                                     <tr>
@@ -87,6 +85,10 @@ if ( isset($_POST['auth']) ) {
                                             <span class="text-error"><?=$error?></span>
                                         </td>
         							</tr>
+                                <?php endif ?>
+
+                                <?php if ($success): ?>
+                                    <?php include($_SERVER['DOCUMENT_ROOT'] . '/php/success.php')?>
                                 <?php endif ?>
 
     							<tr>

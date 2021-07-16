@@ -1,4 +1,6 @@
 
-<div class="headder__right headder-right">
-    <span class="headder-right__text"><?=$authUser['fullName']?></span>
-</div>
+<tr>
+    <td class="iat">
+        <span class="text-success">Вы успешно авторизовались!</span>
+    </td>
+</tr>

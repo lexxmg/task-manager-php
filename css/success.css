@@ -1,11 +1,3 @@
-.headder__right {
-  float: right;
-}
-
-.headder-right {
-  padding: .5em 0 0 0;
-}
-
-.headder-right__text {
-  color: white;
+.text-success {
+  color: green;
 }
