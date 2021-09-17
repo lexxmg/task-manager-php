@@ -10,7 +10,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <link href="/css/styles.css" rel="stylesheet">
-        <link rel="stylesheet" href="/css/abote-main.css">
+        <link rel="stylesheet" href="/css/abote.css">
+        <link rel="stylesheet" href="/css/contacts.css">
+        <link rel="stylesheet" href="/css/news.css">
+        <link rel="stylesheet" href="/css/directory.css">
         <link rel="stylesheet" href="/css/success.css">
 
         <title>Project - ведение списков</title>

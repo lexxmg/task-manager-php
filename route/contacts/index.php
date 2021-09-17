@@ -1,8 +1,8 @@
 
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/templates/header.php')?>
 
-<main class="abote">
-  <h1 class="abote__title">О нас</h1>
+<main class="contacts">
+  <h1 class="contacts__title">Котакты</h1>
 </main>
 
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php')?>
