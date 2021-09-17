@@ -7,10 +7,12 @@
 <html>
     <head>
         <meta charset="utf-8">
-
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <link href="/css/styles.css" rel="stylesheet">
+        <link rel="stylesheet" href="/css/abote-main.css">
         <link rel="stylesheet" href="/css/success.css">
+
         <title>Project - ведение списков</title>
     </head>
 
@@ -21,12 +23,10 @@
             <div class="clearfix"></div>
         </div>
 
-        <div class="clear">
+        <div class="clearfix">
             <ul class="main-menu">
-                <li><a href="/#">Главная</a></li>
-                <li><a href="/#">О нас</a></li>
-                <li><a href="/#">Контакты</a></li>
-                <li><a href="/#">Новости</a></li>
-                <li><a href="/#">Каталог</a></li>
+                <?php foreach (arraySort($menu, 'sort', SORT_ASC) as $key => $value): ?>
+                    <li><a href="<?=$value['path']?>"><?=$value['title']?></a></li>
+                <?php endforeach; ?>
             </ul>
         </div>

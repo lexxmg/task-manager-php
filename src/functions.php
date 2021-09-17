@@ -2,8 +2,8 @@
 <?php
 
 //______________________Сортировка массива______________________________________
-// arraySort($array, 'sort_key', SORT_ASC)
-// arraySort($array, 'sort_key', SORT_DESC)
+// arraySort($array, 'sort_key', SORT_ASC) по возрастанию
+// arraySort($array, 'sort_key', SORT_DESC) по убыванию
 
 function arraySort(array $array, $key = 'sort', $sort = SORT_ASC): array
 {
