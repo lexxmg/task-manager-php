@@ -27,9 +27,5 @@
         </div>
 
         <div class="clearfix">
-            <ul class="main-menu">
-                <?php foreach (arraySort($menu, 'sort', SORT_ASC) as $key => $value): ?>
-                    <li><a href="<?=$value['path']?>"><?=$value['title']?></a></li>
-                <?php endforeach; ?>
-            </ul>
+          <?php showMenu($menu, 'sort', SORT_ASC, 'main-menu')?>
         </div>

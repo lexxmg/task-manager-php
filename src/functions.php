@@ -32,3 +32,29 @@ function cutString(string $line, $length = 12, $appends = '...'): string
 }
 
 //______________________________________________________________________________
+
+
+//______________________Вывод меню______________________________________________
+
+function showMenu(array $array, string $key, $sort, $className = '')
+{
+  require($_SERVER['DOCUMENT_ROOT'] . '/templates/menu.php');
+}
+
+//______________________________________________________________________________
+
+
+//______________________Получить заголовок______________________________________
+
+function getTitle(array $menu): string
+{
+    $url = $_SERVER['REQUEST_URI'];
+
+    foreach ($menu as $key => $value) {
+      if ($value['path'] === $url) {
+        return $value['title'];
+      }
+    }
+}
+
+//______________________________________________________________________________
