@@ -2,7 +2,7 @@
 <ul class="<?=$className?>">
     <?php foreach (arraySort($array, $key, $sort) as $key => $value): ?>
         <li>
-          <a class="<?=($value['path'] === $_SERVER['REQUEST_URI']) ? 'active' : ''?>"
+          <a class="<?=($value['path'] === getPath()) ? 'active' : ''?>"
              href="<?=$value['path']?>"
           >
             <?php

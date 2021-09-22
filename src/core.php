@@ -1,8 +1,8 @@
 
 <?php
 
-require('functions.php');
-require('main_menu.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/src/functions.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/src/main_menu.php');
 
 $login = htmlspecialchars($_POST['login'] ?? '');
 $password = htmlspecialchars($_POST['password'] ?? '');
