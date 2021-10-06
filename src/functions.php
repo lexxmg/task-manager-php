@@ -2,8 +2,8 @@
 <?php
 
 //______________________Сортировка массива______________________________________
-// arraySort($array, 'sort_key', SORT_ASC) по возрастанию
-// arraySort($array, 'sort_key', SORT_DESC) по убыванию
+  // arraySort($array, 'sort_key', SORT_ASC) по возрастанию
+  // arraySort($array, 'sort_key', SORT_DESC) по убыванию
 
 function arraySort(array $array, $key = 'sort', $sort = SORT_ASC): array
 {
@@ -18,7 +18,7 @@ function arraySort(array $array, $key = 'sort', $sort = SORT_ASC): array
 
 
 //______________________Обрезка строки__________________________________________
-// cutString($string, 14);
+ // cutString($string, 14);
 
 // function cutString(string $line, $length = 12, $appends = '...'): string
 // {
@@ -66,6 +66,9 @@ function getTitle(array $menu): string
 
 //______________________________________________________________________________
 
+//______________________Если путь существует____________________________________
+
+  //isCurrentUrl('/route/directory/') true
 
 function isCurrentUrl(string $url): bool
 {
@@ -73,7 +76,3 @@ function isCurrentUrl(string $url): bool
 }
 
 //______________________________________________________________________________
-function getPath(): string
-{
-    return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-}
