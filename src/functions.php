@@ -53,28 +53,27 @@ function showMenu(array $array, string $key, $sort, $className = '')
 
 function getTitle(array $menu): string
 {
-    $url = $_SERVER['REQUEST_URI'];
+    $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
     foreach ($menu as $key => $value) {
-      if ($value['path'] === $url) {
-        return $value['title'];
-      }
+        if ($value['path'] === $path) {
+          return $value['title'];
+        }
     }
+
+    return 'Страница не найдена';
 }
 
-function isCurrentUrl(array $menu): string
-{
-  $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+//______________________________________________________________________________
 
-  foreach ($menu as $key => $value) {
-    if ($value['path'] === $path) {
-      return $value['title'];
-    }
-  }
+
+function isCurrentUrl(string $url): bool
+{
+    return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) === $url;
 }
 
 //______________________________________________________________________________
 function getPath(): string
 {
-  return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 }
