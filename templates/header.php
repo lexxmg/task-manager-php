@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="/css/abote.css">
         <link rel="stylesheet" href="/css/contacts.css">
         <link rel="stylesheet" href="/css/news.css">
+        <link rel="stylesheet" href="/css/error.css">
         <link rel="stylesheet" href="/css/directory.css">
         <link rel="stylesheet" href="/css/success.css">
 

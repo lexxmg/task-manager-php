@@ -20,17 +20,6 @@ function arraySort(array $array, $key = 'sort', $sort = SORT_ASC): array
 //______________________Обрезка строки__________________________________________
  // cutString($string, 14);
 
-// function cutString(string $line, $length = 12, $appends = '...'): string
-// {
-//     $strLength = mb_strlen($line);
-//
-//     if ($strLength > $length) {
-//         return mb_substr($line, 0, $length) . $appends;
-//     } else {
-//         return $line;
-//     }
-// }
-
 function cutString(string $line, $length = 12, $appends = '...'): string
 {
     return mb_strimwidth($line, 0, $length + mb_strlen($appends), $appends);
@@ -40,6 +29,7 @@ function cutString(string $line, $length = 12, $appends = '...'): string
 
 
 //______________________Вывод меню______________________________________________
+  //showMenu($menu, 'title', SORT_DESC, 'main-menu bottom')
 
 function showMenu(array $array, string $key, $sort, $className = '')
 {
