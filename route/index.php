@@ -2,26 +2,19 @@
 <?php
 require($_SERVER['DOCUMENT_ROOT'] . '/templates/header.php');
 
-switch ( parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ) {
-    case '/route/about/':
-        require($_SERVER['DOCUMENT_ROOT'] . '/templates/about.php');
-        break;
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$isPath = false;
 
-    case '/route/contacts/':
-        require($_SERVER['DOCUMENT_ROOT'] . '/templates/contacts.php');
-        break;
+foreach ($menu as $key => $value) {
+    if ($value['path'] === $path) {
+        $p = explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) )[2];
+        require($_SERVER['DOCUMENT_ROOT'] . "/templates/$p.php");
+        $isPath = true;
+    }
+}
 
-    case '/route/directory/':
-        require($_SERVER['DOCUMENT_ROOT'] . '/templates/directory.php');
-        break;
-
-    case '/route/news/':
-        require($_SERVER['DOCUMENT_ROOT'] . '/templates/news.php');
-        break;
-
-    default:
-        require($_SERVER['DOCUMENT_ROOT'] . '/templates/error.php');
-        break;
+if (!$isPath) {
+   require($_SERVER['DOCUMENT_ROOT'] . '/templates/error.php');
 }
 
 require($_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php');

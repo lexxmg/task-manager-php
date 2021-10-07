@@ -1,4 +1,4 @@
 
 <main class="error">
-  <h1 class="error__title"><?=getTitle($menu)?></h1>
+  <h1 class="error__title">Страница не найдена</h1>
 </main>
