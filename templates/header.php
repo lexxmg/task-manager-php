@@ -24,6 +24,16 @@
         <div class="header">
         	<div class="logo"><img src="/i/logo.png" width="68" height="23" alt="Project"></div>
 
+            <?php if ( !empty($authUser) ): ?>
+                <div class="auth-user-container">
+                    <div class="auth-user-container__user">
+                        <a href="/?logout" class="auth-user-container__link">Выйти</a>
+
+                        <span class="auth-user-container__email"><?=$authUser['fullName']?></span>
+                    </div>
+                </div>
+            <?php endif; ?>
+
             <div class="clearfix"></div>
         </div>
 

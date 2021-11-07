@@ -50,6 +50,49 @@ a:hover {
     border: none;
 }
 
+.auth-user-container {
+  float: right;
+
+  color: white;
+}
+
+.auth-user-container__user {
+  display: flex;
+  align-items: center;
+}
+
+.auth-user-container__email {
+
+}
+
+.auth-user-container__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 60px;
+  height: 20px;
+
+  margin: 0 20px 0 0;
+
+  background-color: #efefef;
+
+  border: 1px solid #efefef;
+  border-radius: 3px;
+
+  text-decoration: none;
+
+  color: #999;
+}
+
+.auth-user-container__link:hover {
+  background-color: #444;
+
+  text-decoration: none;
+
+  color: #999;
+}
+
 .main-menu {
     margin: 0;
     padding: 0;

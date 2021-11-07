@@ -2,6 +2,11 @@
 <?php
 require($_SERVER['DOCUMENT_ROOT'] . '/templates/header.php');
 
+if ( !isset($_SESSION['email']) ) {
+    header('Location: /?login=yes');
+    exit();
+}
+
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $isPath = false;
 
