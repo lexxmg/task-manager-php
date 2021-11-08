@@ -1,8 +1,8 @@
 
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . '/templates/header.php');
+require $_SERVER['DOCUMENT_ROOT'] . '/templates/header.php';
 
-if ( !isset($_SESSION['email']) ) {
+if ( !isset($_SESSION['isAuth']) ) {
     header('Location: /?login=yes');
     exit();
 }
@@ -13,13 +13,13 @@ $isPath = false;
 foreach ($menu as $key => $value) {
     if ($value['path'] === $path) {
         $p = explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) )[2];
-        require($_SERVER['DOCUMENT_ROOT'] . "/templates/$p.php");
+        require $_SERVER['DOCUMENT_ROOT'] . "/templates/$p.php";
         $isPath = true;
     }
 }
 
 if (!$isPath) {
-   require($_SERVER['DOCUMENT_ROOT'] . '/templates/error.php');
+   require $_SERVER['DOCUMENT_ROOT'] . '/templates/error.php';
 }
 
-require($_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php');
+require $_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php';

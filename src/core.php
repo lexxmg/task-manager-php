@@ -1,11 +1,9 @@
-
 <?php
-
 session_start();
 
-require($_SERVER['DOCUMENT_ROOT'] . '/src/functions.php');
-require($_SERVER['DOCUMENT_ROOT'] . '/src/main_menu.php');
-require ($_SERVER['DOCUMENT_ROOT'] . '/php/users.php');
+require $_SERVER['DOCUMENT_ROOT'] . '/src/functions.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/src/main_menu.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/php/users.php';
 
 $login = htmlspecialchars($_POST['login'] ?? '');
 $password = htmlspecialchars($_POST['password'] ?? '');
@@ -13,19 +11,18 @@ $password = htmlspecialchars($_POST['password'] ?? '');
 $authUser = [];
 $success = false;
 $error = '';
+$cookieTime = time() + 60 * 60 * 24 * 30;
 
-if ( isset($_SESSION['email']) ) {
-    foreach ($users as $key => $value) {
-        if ($value['email'] === $_SESSION['email']) {
-            $authUser = $value;
-            break;
-        }
-    }
+if ( isset($_COOKIE['user']) && isset($_SESSION['isAuth']) ) {
+    $authUser = json_decode($_COOKIE['user'], true);
+    setcookie('user', $_COOKIE['user'], $cookieTime, '/');
+}
+
+if ( isset($_COOKIE['user']) ) {
+    $login = json_decode($_COOKIE['user'], true)['email'];
 }
 
 if ( isset($_POST['auth']) ) {
-    //require ($_SERVER['DOCUMENT_ROOT'] . '/php/users.php');
-
     if ( $login == '' || $password == '' ) {
         $error = 'Все поля должны быть заполнены!';
     } else {
@@ -37,8 +34,10 @@ if ( isset($_POST['auth']) ) {
                 $authUser = $users[$i];
                 $error = '';
 
-                $_SESSION['email'] = $users[$i]['email'];
+                $_SESSION['isAuth'] = true;
+                setcookie('user', json_encode($users[$i], JSON_UNESCAPED_UNICODE), $cookieTime);
                 header('Location: /');
+                exit();
             }
         }
     }
@@ -46,9 +45,9 @@ if ( isset($_POST['auth']) ) {
 
 if ( isset($_GET['logout']) ) {
     session_destroy();
-    unset($_SESSION['email']);
+    unset($_SESSION['isAuth']);
 
-    $authUser = [];
+    setcookie('user', '', 1);
 
     header('Location: /');
     exit();

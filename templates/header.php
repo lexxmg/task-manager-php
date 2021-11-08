@@ -1,6 +1,5 @@
-
 <?php
-    require($_SERVER['DOCUMENT_ROOT'] . '/src/core.php');
+    require $_SERVER['DOCUMENT_ROOT'] . '/src/core.php';
 ?>
 
 <!DOCTYPE html>
