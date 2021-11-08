@@ -23,19 +23,19 @@ if ( isset($_COOKIE['user']) ) {
 }
 
 if ( isset($_POST['auth']) ) {
-    if ( $login == '' || $password == '' ) {
+    if (!$login || !$password) {
         $error = 'Все поля должны быть заполнены!';
     } else {
         $error = 'Неверный логин или пароль!';
 
-        for ($i = 0; $i < count($users); $i++) {
-            if ($login == $users[$i]['email'] && $password == $passwords[$i]) {
+        foreach ($users as $key => $value) {
+            if ($login == $value['email'] && $password == $passwords[$key]) {
                 $success = true;
-                $authUser = $users[$i];
+                $authUser = $value;
                 $error = '';
 
                 $_SESSION['isAuth'] = true;
-                setcookie('user', json_encode($users[$i], JSON_UNESCAPED_UNICODE), $cookieTime);
+                setcookie('user', json_encode($value, JSON_UNESCAPED_UNICODE), $cookieTime);
                 header('Location: /');
                 exit();
             }
