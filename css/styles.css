@@ -102,7 +102,7 @@ a:hover {
 .main-menu li {
     list-style: none;
     float: left;
-    background: url(i/top-menu-bg.gif) bottom repeat-x #efefef;
+    background: url(../i/top-menu-bg.gif) bottom repeat-x #efefef;
     margin: 0 3px 0 0;
     padding: 0;
 
@@ -132,7 +132,7 @@ a:hover {
     text-decoration: none;
     display: block;
     color: #ffffff;
-    background: url(i/fl-bg-hover.gif) bottom repeat-x #67bdff;
+    background: url(../i/fl-bg-hover.gif) bottom repeat-x #67bdff;
 }
 
 .clearfix::after {
