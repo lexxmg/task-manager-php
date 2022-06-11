@@ -13,6 +13,31 @@ $success = false;
 $error = '';
 $cookieTime = time() + 60 * 60 * 24 * 30;
 
+if (0) {
+    foreach ($users as $key => $user) {
+        $fullName = $user['fullName'];
+        $email = $user['email'];
+        $password = password_hash('123456', PASSWORD_DEFAULT);
+
+        $result = mysqli_query(connect(),
+            "INSERT INTO `users` (`fullName`, `email`, `password`)
+            VALUES ('$fullName', '$email', '$password')"
+        );
+    }
+
+    mysqli_close(connect());
+}
+
+if (1) {
+    $result = mysqli_query(connect(),
+        "SELECT * FROM `users` WHERE `users`.`email` = 'Pushkin@fake.net'"
+    );
+
+    var_dump( mysqli_fetch_array($result,  MYSQL_BOTH) );
+
+    mysqli_close(connect());
+}
+
 if ( isset($_COOKIE['user']) && isset($_SESSION['isAuth']) ) {
     $authUser = json_decode($_COOKIE['user'], true);
     setcookie('user', $_COOKIE['user'], $cookieTime, '/');

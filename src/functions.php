@@ -1,6 +1,25 @@
 <?php
 
 /**
+* Подключение к БД
+*/
+function connect()
+{
+    static $connect = null;
+
+    if (!$connect) {
+        $host = 'localhost';
+        $user = 'root';
+        $password = '';
+        $dbname = 'skillbox_20.4';
+
+        $connect = mysqli_connect($host, $user, $password, $dbname) or die('connect BD err');
+    }
+
+    return $connect;
+}
+
+/**
 * Сортировка массива
 * arraySort($array, 'sort_key', SORT_ASC) по возрастанию
 * arraySort($array, 'sort_key', SORT_DESC) по убыванию
