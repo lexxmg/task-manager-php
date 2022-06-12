@@ -38,7 +38,7 @@ function getUser(string $email)
         return false;
     }
 
-    mysqli_close(connect());
+    connect()->close();
 }
 
 /**

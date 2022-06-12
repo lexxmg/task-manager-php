@@ -13,6 +13,16 @@ $success = false;
 $error = '';
 $cookieTime = time() + 60 * 60 * 24 * 30;
 
+if (0) {
+
+    $password = password_hash('123456', PASSWORD_DEFAULT);
+
+    $result = connect()->query(
+        "UPDATE `users` SET `password`='$password')"
+    );
+
+    connect()->close();
+}
 
 if ( isset($_COOKIE['user']) && isset($_SESSION['isAuth']) ) {
     $authUser = json_decode($_COOKIE['user'], true);
