@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="/css/news.css">
         <link rel="stylesheet" href="/css/error.css">
         <link rel="stylesheet" href="/css/directory.css">
+        <link rel="stylesheet" href="/css/profile.css">
         <link rel="stylesheet" href="/css/success.css">
 
         <title>Project - ведение списков</title>
@@ -28,7 +29,7 @@
                     <div class="auth-user-container__user">
                         <a href="/?logout" class="auth-user-container__link">Выйти</a>
 
-                        <span class="auth-user-container__email"><?=$authUser['fullName']?></span>
+                        <span class="auth-user-container__email"><?=$authUser['name']?></span>
                     </div>
                 </div>
             <?php endif; ?>

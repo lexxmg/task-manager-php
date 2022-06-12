@@ -9,16 +9,16 @@ $login = htmlspecialchars($_POST['login'] ?? '');
 $password = htmlspecialchars($_POST['password'] ?? '');
 
 $authUser = [];
+$userGroups = [];
 $success = false;
 $error = '';
 $cookieTime = time() + 60 * 60 * 24 * 30;
 
 if (0) {
-
     $password = password_hash('123456', PASSWORD_DEFAULT);
 
     $result = connect()->query(
-        "UPDATE `users` SET `password`='$password')"
+        "UPDATE `users` SET `password`='$password'"
     );
 
     connect()->close();
@@ -31,6 +31,12 @@ if ( isset($_COOKIE['user']) && isset($_SESSION['isAuth']) ) {
 
 if ( isset($_COOKIE['user']) ) {
     $login = json_decode($_COOKIE['user'], true)['email'];
+
+    $groups = getGroups($login);
+
+    if ($groups) {
+        $userGroups = $groups;
+    }
 }
 
 if ( isset($_POST['auth']) ) {
@@ -42,14 +48,17 @@ if ( isset($_POST['auth']) ) {
         $user = getUser($login);
 
         if ($user && password_verify($password, $user['password'])) {
-            $user = ['fullName' => $user['fullName'], 'email' => $user['email']];
+            foreach ($user as $key => $item) {
+                if ($key != 'password') {
+                    $authUser[$key] = $item;
+                }
+            }
 
             $success = true;
-            $authUser = $user;
             $error = '';
 
             $_SESSION['isAuth'] = true;
-            setcookie('user', json_encode($user, JSON_UNESCAPED_UNICODE), $cookieTime);
+            setcookie('user', json_encode($authUser, JSON_UNESCAPED_UNICODE), $cookieTime);
             header('Location: /');
             exit();
         }

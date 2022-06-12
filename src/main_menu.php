@@ -28,8 +28,13 @@ $menu = [
         'sort' => 4
     ],
     [
+        'title' => 'Профиль',
+        'path' => '/route/profile/',
+        'sort' => 5
+    ],
+    [
         'title' => 'Длинное название меню',
         'path' => '/route/error/',
-        'sort' => 5
+        'sort' => 6
     ]
 ];

@@ -11,7 +11,7 @@ function connect()
         $host = 'localhost';
         $user = 'root';
         $password = '';
-        $dbname = 'skillbox_20.4';
+        $dbname = 'skillbox_19.6';
 
         $connect = new mysqli($host, $user, $password, $dbname) or die('connect BD err');
     }
@@ -27,18 +27,44 @@ function getUser(string $email)
     $email = connect()->real_escape_string($email);
 
     $result = connect()->query(
-        "SELECT * FROM `users` WHERE `users`.`email` = '$email'"
+        "SELECT * FROM `users` WHERE `users`.`email` = '$email';"
     );
 
     $user = $result->fetch_array(MYSQLI_ASSOC);
+
+    connect()->close();
 
     if ($user) {
         return $user;
     } else {
         return false;
     }
+}
+
+/**
+* получение групп пользователя
+*/
+function getGroups(string $email): array
+{
+    $groups = [];
+    $email = connect()->real_escape_string($email);
+
+    $result = connect()->query(
+        "SELECT `users`.`email`, `groups`.`name`, `groups`.`description`
+        FROM `users`
+        LEFT JOIN `user_groups` ON `users`.`id`=`user_groups`.`user_id`
+        LEFT JOIN `groups` ON `user_groups`.`group_id`=`groups`.`id`
+        WHERE `email`='$email';"
+    );
+
+
+    while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+        $groups[] = $row;
+    }
 
     connect()->close();
+
+    return $groups;
 }
 
 /**
