@@ -13,10 +13,32 @@ function connect()
         $password = '';
         $dbname = 'skillbox_20.4';
 
-        $connect = mysqli_connect($host, $user, $password, $dbname) or die('connect BD err');
+        $connect = new mysqli($host, $user, $password, $dbname) or die('connect BD err');
     }
 
     return $connect;
+}
+
+/**
+* Получить пользователя
+*/
+function getUser(string $email)
+{
+    $email = connect()->real_escape_string($email);
+
+    $result = connect()->query(
+        "SELECT * FROM `users` WHERE `users`.`email` = '$email'"
+    );
+
+    $user = $result->fetch_array(MYSQLI_ASSOC);
+
+    if ($user) {
+        return $user;
+    } else {
+        return false;
+    }
+
+    mysqli_close(connect());
 }
 
 /**
