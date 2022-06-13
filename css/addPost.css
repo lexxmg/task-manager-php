@@ -1,0 +1,10 @@
+
+.add-post {
+  background-color: white;
+}
+
+.add-post__title {
+  padding: 20px 0;
+
+  text-align: center;
+}

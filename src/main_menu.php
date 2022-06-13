@@ -33,8 +33,13 @@ $menu = [
         'sort' => 5
     ],
     [
+        'title' => 'Сообщения',
+        'path' => '/route/posts/',
+        'sort' => 6
+    ],
+    [
         'title' => 'Длинное название меню',
         'path' => '/route/error/',
-        'sort' => 6
+        'sort' => 7
     ]
 ];

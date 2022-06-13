@@ -3,7 +3,7 @@
 /**
 * Подключение к БД
 */
-function connect()
+function connect($close = '')
 {
     static $connect = null;
 
@@ -14,6 +14,13 @@ function connect()
         $dbname = 'skillbox_19.6';
 
         $connect = new mysqli($host, $user, $password, $dbname) or die('connect BD err');
+    }
+
+    if ($close === 'close') {
+        $connect->close();
+        $connect = null;
+        unset($connect);
+        return;
     }
 
     return $connect;
@@ -32,10 +39,32 @@ function getUser(string $email)
 
     $user = $result->fetch_array(MYSQLI_ASSOC);
 
-    connect()->close();
+    connect('close');
 
     if ($user) {
         return $user;
+    } else {
+        return false;
+    }
+}
+
+/**
+* Получить сообщение
+*/
+function getMessage(int $id)
+{
+    $id = connect()->real_escape_string($id);
+
+    $result = connect()->query(
+        "SELECT * FROM `messages` WHERE `id`=$id"
+    );
+
+    $message = $result->fetch_array(MYSQLI_ASSOC);
+
+    connect('close');
+
+    if ($message) {
+        return $message;
     } else {
         return false;
     }
@@ -62,9 +91,34 @@ function getGroups(string $email): array
         $groups[] = $row;
     }
 
-    connect()->close();
+    connect('close');
 
     return $groups;
+}
+
+/**
+* Получить заголовки сообщений
+*/
+function getTitleMessages(int $id): array
+{
+    $messages = [];
+    $id = connect()->real_escape_string($id);
+
+    $result = connect()->query(
+        "SELECT `messages`.`id`, `messages`.`title`, `message_sections`.`name`, `messages`.`reading`
+        FROM `messages`
+        LEFT JOIN `message_sections` ON `message_sections`.`id`=`messages`.`id`
+        WHERE `messages`.`user_id_recipient`='$id';"
+    );
+
+
+    while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+        $messages[] = $row;
+    }
+
+    connect('close');
+
+    return $messages;
 }
 
 /**

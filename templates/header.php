@@ -15,6 +15,9 @@
         <link rel="stylesheet" href="/css/error.css">
         <link rel="stylesheet" href="/css/directory.css">
         <link rel="stylesheet" href="/css/profile.css">
+        <link rel="stylesheet" href="/css/posts.css">
+        <link rel="stylesheet" href="/css/addPost.css">
+        <link rel="stylesheet" href="/css/detailPost.css">
         <link rel="stylesheet" href="/css/success.css">
 
         <title>Project - ведение списков</title>
