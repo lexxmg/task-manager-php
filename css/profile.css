@@ -1,9 +1,27 @@
 .profile {
+  padding: 20px 0;
+
   background-color: white;
 }
 
 .profile__title {
-  padding: 20px 0;
-
   text-align: center;
+}
+
+.profile__text {
+  margin: 0 0 0 50px;
+
+  font-weight: 700;
+}
+
+.profile-list__item {
+  margin: 0 0 7px 0;
+}
+
+.profile-list__item:last-child {
+  margin: 0;
+}
+
+.profile-list__text {
+  margin:  0 10px 0 0;
 }
