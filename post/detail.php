@@ -3,7 +3,7 @@
 <?php
     $messageId = $_GET['id'] ?? '';
 
-    $userMessage = getMessage($messageId);
+    $userMessage = getMessage($messageId, $authUser['id']);
     setMessageReading($messageId);
 ?>
 
@@ -11,11 +11,13 @@
   <h1 class="detail-post__title">Содержиние сообщения</h1>
 
   <pre>
-      <?php var_dump($userMessage)?>
-  </pre>
+      <?php if ($userMessage): ?>
+          <?php var_dump($userMessage)?>
 
-  <pre>
-      <?php var_dump( getUser($userMessage['user_id_sender'])['name'] )?>
+          <?php var_dump( getUser($userMessage['user_id_sender'])['name'] )?>
+      <?php else: ?>
+          <span>сообщения не найдены</span>
+      <?php endif; ?>
   </pre>
 </main>
 

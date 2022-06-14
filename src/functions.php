@@ -52,12 +52,15 @@ function getUser(string $email)
 /**
 * Получить сообщение
 */
-function getMessage(int $id)
+function getMessage(int $id, int $userId)
 {
     $id = connect()->real_escape_string($id);
+    $userId = connect()->real_escape_string($userId);
 
     $result = connect()->query(
-        "SELECT * FROM `messages` WHERE `id`=$id"
+        "SELECT * FROM `messages`
+            WHERE `messages`.`id`=$id AND
+            (`messages`.`user_id_sender`=$userId OR `messages`.`user_id_recipient`=$userId);"
     );
 
     $message = $result->fetch_array(MYSQLI_ASSOC);
