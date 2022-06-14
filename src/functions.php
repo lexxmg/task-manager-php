@@ -121,6 +121,53 @@ function getGroups(string $email): array
 }
 
 /**
+* получение пользователей которые могут писать
+*/
+function getAllowedToWrite(): array
+{
+    $users = [];
+
+    $result = connect()->query(
+        "SELECT `users`.`id`, `users`.`name` AS 'user', `groups`.`name` AS 'group'
+        FROM `users`
+        LEFT JOIN `user_groups` ON `users`.`id`=`user_groups`.`user_id`
+        LEFT JOIN `groups` ON `user_groups`.`group_id`=`groups`.`id`
+        WHERE `groups`.`name`='is_allowed_to_write';"
+    );
+
+
+    while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+        $users[] = $row;
+    }
+
+    connect('close');
+
+    return $users;
+}
+
+/**
+* получение списка разделов
+*/
+function getMessageSections(): array
+{
+    $sections = [];
+
+    $result = connect()->query(
+        "SELECT  * FROM `message_sections`;"
+    );
+
+
+    while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+        $sections[] = $row;
+    }
+
+    connect('close');
+
+    return $sections;
+}
+
+
+/**
 * Получить заголовки сообщений
 */
 function getTitleMessages(int $id): array
