@@ -34,7 +34,8 @@ function getUser(string $email)
     $email = connect()->real_escape_string($email);
 
     $result = connect()->query(
-        "SELECT * FROM `users` WHERE `users`.`email` = '$email';"
+        "SELECT * FROM `users`
+        WHERE `users`.`email` = '$email' OR `users`.`id` = $email;"
     );
 
     $user = $result->fetch_array(MYSQLI_ASSOC);
@@ -65,6 +66,26 @@ function getMessage(int $id)
 
     if ($message) {
         return $message;
+    } else {
+        return false;
+    }
+}
+
+/**
+* Пометить как прочитанное
+*/
+function setMessageReading(int $messageId): bool
+{
+    $messageId = connect()->real_escape_string($messageId);
+
+    $result = connect()->query(
+        "UPDATE `messages` SET `messages`.`reading` = 1 WHERE `id`=$messageId;"
+    );
+
+    connect('close');
+
+    if ($result) {
+        return true;
     } else {
         return false;
     }
