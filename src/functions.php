@@ -35,7 +35,7 @@ function getUser(string $email)
 
     $result = connect()->query(
         "SELECT * FROM `users`
-        WHERE `users`.`email` = '$email' OR `users`.`id` = $email;"
+        WHERE `users`.`email`='$email' OR `users`.`id`='$email';"
     );
 
     $user = $result->fetch_array(MYSQLI_ASSOC);
@@ -69,6 +69,31 @@ function getMessage(int $id, int $userId)
 
     if ($message) {
         return $message;
+    } else {
+        return false;
+    }
+}
+
+/**
+* Добавить сообщение
+*/
+function addMessage(int $senderId, int $recipientId, string $title, string $text): bool
+{
+    $senderId = connect()->real_escape_string($senderId);
+    $recipientId = connect()->real_escape_string($recipientId);
+    $title = connect()->real_escape_string($title);
+    $text = connect()->real_escape_string($text);
+
+    $result = connect()->query(
+        "INSERT INTO `messages` (`user_id_sender`, `user_id_recipient`, `title`, `text`)
+        VALUES
+        ($senderId, $recipientId, '$title', '$text');"
+    );
+
+    connect('close');
+
+    if ($result) {
+        return true;
     } else {
         return false;
     }
