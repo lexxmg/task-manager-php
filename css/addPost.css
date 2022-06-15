@@ -1,6 +1,8 @@
 
 .add-post {
   background-color: white;
+
+  padding: 0 0 20px 0;
 }
 
 .add-post__title {

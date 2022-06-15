@@ -9,17 +9,14 @@
     $messageSections = getMessageSections();
     $allowedToWrite = getAllowedToWrite();
 
-    if ($userRecipientMesages) {
-        $userRecipient = getUser($userRecipientMesages);
-    }
-
     if (isset($_POST['sendPost'])) {
         if ($titleMesages && $textMesages && $sectionsMesages && $userRecipientMesages) {
-            echo 'добавление в БД';
 
-            addMessage($authUser['id'], $userRecipientMesages, $titleMesages, $textMesages);
-
-            $success = true;
+            if ( addMessage($authUser['id'], $userRecipientMesages, $titleMesages, $textMesages) ) {
+                $success = true;
+            } else {
+                $error = 'Ошибка базы данных, повторите попытку позже';
+            }
         } else {
             $error = 'Все поля должны быть заполнены!';
         }
@@ -68,17 +65,19 @@
               </option>
 
               <?php foreach ($allowedToWrite as $key => $value): ?>
-                  <?php if ($value['user'] === $userRecipient['name']): ?>
-                      <option class="add-post-form__option"
-                        value="<?=$value['id']?>"
-                        selected
-                        >
-                        <?=$value['user']?>
-                      </option>
-                  <?php else: ?>
-                      <option class="add-post-form__option"
-                        value="<?=$value['id']?>"><?=$value['user']?>
-                      </option>
+                  <?php if ($value['id'] !== $authUser['id']): ?>
+                      <?php if ($value['id'] === $userRecipientMesages): ?>
+                          <option class="add-post-form__option"
+                            value="<?=$value['id']?>"
+                            selected
+                            >
+                            <?=$value['user']?>
+                          </option>
+                      <?php else: ?>
+                          <option class="add-post-form__option"
+                            value="<?=$value['id']?>"><?=$value['user']?>
+                          </option>
+                      <?php endif; ?>
                   <?php endif; ?>
               <?php endforeach; ?>
           </select>
@@ -95,18 +94,6 @@
 
       <button class="add-post-form__btn" name="sendPost">Отправить</button>
   </form>
-
-  <pre>
-      <?php var_dump( $_POST ?? '' )?>
-  </pre>
-
-  <pre>
-      <?php var_dump( getAllowedToWrite() )?>
-  </pre>
-
-  <pre>
-      <?php var_dump( getMessageSections() )?>
-  </pre>
 </main>
 
 <?php require $_SERVER['DOCUMENT_ROOT'] . '/templates/footer.php'?>
