@@ -12,7 +12,7 @@
     if (isset($_POST['sendPost'])) {
         if ($titleMesages && $textMesages && $sectionsMesages && $userRecipientMesages) {
 
-            if ( addMessage($authUser['id'], $userRecipientMesages, $titleMesages, $textMesages) ) {
+            if ( addMessage($authUser['id'], $userRecipientMesages, $titleMesages, $textMesages, $sectionsMesages) ) {
                 $success = true;
             } else {
                 $error = 'Ошибка базы данных, повторите попытку позже';

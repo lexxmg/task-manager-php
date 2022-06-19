@@ -60,7 +60,7 @@ function getMessage(int $id, int $userId)
     $result = connect()->query(
         "SELECT * FROM `messages`
             WHERE `messages`.`id`=$id AND
-            (`messages`.`user_id_sender`=$userId OR `messages`.`user_id_recipient`=$userId);"
+            (`messages`.`sender_id`=$userId OR `messages`.`recipient_id`=$userId);"
     );
 
     $message = $result->fetch_array(MYSQLI_ASSOC);
@@ -77,7 +77,7 @@ function getMessage(int $id, int $userId)
 /**
 * Добавить сообщение
 */
-function addMessage(int $senderId, int $recipientId, string $title, string $text): bool
+function addMessage(int $senderId, int $recipientId, string $title, string $text, int $sectionsMesages): bool
 {
     $senderId = connect()->real_escape_string($senderId);
     $recipientId = connect()->real_escape_string($recipientId);
@@ -85,9 +85,9 @@ function addMessage(int $senderId, int $recipientId, string $title, string $text
     $text = connect()->real_escape_string($text);
 
     $result = connect()->query(
-        "INSERT INTO `messages` (`user_id_sender`, `user_id_recipient`, `title`, `text`)
+        "INSERT INTO `messages` (`sender_id`, `recipient_id`, `title`, `section_id`, `text`)
         VALUES
-        ($senderId, $recipientId, '$title', '$text');"
+        ($senderId, $recipientId, '$title', $sectionsMesages, '$text');"
     );
 
     connect('close');
@@ -203,8 +203,8 @@ function getTitleMessages(int $id): array
     $result = connect()->query(
         "SELECT `messages`.`id`, `messages`.`title`, `message_sections`.`name`, `messages`.`reading`
         FROM `messages`
-        LEFT JOIN `message_sections` ON `message_sections`.`id`=`messages`.`id`
-        WHERE `messages`.`user_id_recipient`='$id';"
+        LEFT JOIN `message_sections` ON `message_sections`.`id`=`messages`.`section_id`
+        WHERE `messages`.`recipient_id`='$id';"
     );
 
 

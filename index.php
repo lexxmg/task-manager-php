@@ -1,6 +1,12 @@
 
 <?php require($_SERVER['DOCUMENT_ROOT'] . '/templates/header.php')?>
 
+<?php
+    if (isset($_GET['login']) && $_GET['login'] == 'yes' && $authUser) {
+        header('Location: /');
+    }
+?>
+
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
     	<td class="left-collum-index">

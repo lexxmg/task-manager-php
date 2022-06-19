@@ -7,7 +7,7 @@
     $userSender = [];
 
     if ($userMessage) {
-        $userSender = getUser($userMessage['user_id_sender']);
+        $userSender = getUser($userMessage['sender_id']);
     }
 
     setMessageReading($messageId);
